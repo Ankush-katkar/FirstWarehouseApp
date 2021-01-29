@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="container">
+		<div class="card">
+			<div class="card card-header text-center text-info">
+				<h3>WELCOME TO TO SHIPMENT TYPE DATA PAGE</h3>
+			</div>
+			<div class="card card-body">
+				<table class="table table-hover">
+					<tr class="bg-success text-white">
+						<th>ID</th>
+						<th>Mode</th>
+						<th>Code</th>
+						<th>Enable</th>
+						<th>Grade</th>
+						<th>Description</th>
+						<th>Operation</th>
+					</tr>
+					<tr th:each="ob:${list}">
+						<td th:text="${ob.id}"></td>
+						<td th:text="${ob.shipmentMode}"></td>
+						<td th:text="${ob.shipmentCode}"></td>
+						<td th:text="${ob.enableShipment}"></td>
+						<td th:text="${ob.shipmentGrade}"></td>
+						<td th:text="${ob.shipmentDescription}"></td>
+						<td><a th:href="@{/st/delete(id=${ob.id})}" class="btn btn-danger">DELETE</a> | <a th:href="@{/st/edit(id=${ob.id})}" class="btn btn-info">EDIT</a></td>
+					</tr>
+				</table>
+
+			</div><!-- end card body -->
+
+			<div class="card card-footer alert alert-success" th:if="${message!=null}">
+				<span th:text="${message}"></span>
+			</div>
+
+		</div><!-- end card -->
+
+	</div><!-- end container -->
+</body>	
+</html>

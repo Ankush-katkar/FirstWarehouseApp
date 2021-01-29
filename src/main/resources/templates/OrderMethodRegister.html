@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="container">
+		<div class="card">
+			<div class="card card-header bg-primary text-white text-center">
+				<h3>WELCOME TO ORDER METHOD REGISTER PAGE</h3>
+			</div>
+			<!-- end card header -->
+
+			<div class="card card-body">
+				<form id="orderMethodReg" th:action="@{/om/save}" method="POST">
+
+					<div class="row">
+						<div class="col-3">
+							<label>Order Mode :</label>
+						</div>
+						<div class="col-4">
+							<input type="radio" name="orderMode" value="Sale" />Sale <input
+								type="radio" name="orderMode" value="Purchase" />Purchase
+
+						</div>
+						<div class="col-5">
+							<span id="orderModeError"></span>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-3">
+							<label>Order Code :</label>
+						</div>
+						<div class="col-4">
+							<input type="text" name="orderCode" id="orderCode"
+								class="form-control" />
+						</div>
+						<div class="col-5">
+							<span id="orderCodeError"></span>
+						</div>
+					</div>
+
+
+					<div class="row">
+						<div class="col-3">
+							<label>Order Type:</label>
+						</div>
+						<div class="col-4">
+							<select name="orderType" id="orderType" class="form-control">
+								<option value="">-SELECT-</option>
+								<option value="FIFO">FIFO</option>
+								<option value="LIFO">LIFO</option>
+								<option value="FCFO">FCFO</option>
+								<option value="FEFO">FEFO</option>
+							</select>
+						</div>
+						<div class="col-5">
+							<span id="orderTypeError"></span>
+						</div>
+					</div>
+
+
+					<div class="row">
+						<div class="col-3">
+							<label>Order Accept :</label>
+						</div>
+						<div class="col-4">
+							<input type="checkbox" name="orderAcpt" value="Multi-Model" />
+							Multi-Model <input type="checkbox" name="orderAcpt"
+								value="Accept Return" /> Accept Return
+						</div>
+						<div class="col-5">
+							<span id="orderAcptError"></span>
+						</div>
+					</div>
+
+
+					<div class="row">
+						<div class="col-3">
+							<label>Order Description :</label>
+						</div>
+						<div class="col-4">
+							<textarea name="orderDesc" id="orderDesc" class="form-control"></textarea>
+						</div>
+						<div class="col-5">
+							<span id="orderDescError"></span>
+						</div>
+					</div>
+					<input type="submit" value="Add Order Method"
+						class="btn btn-danger" />
+				</form>
+			</div>
+			<!-- end card-body -->
+			<div class="card card-footer bg-success">
+				<span th:text="${message}" class="text-black"></span>
+			</div>
+			<!-- end footer -->
+		</div>
+		<!-- end card -->
+	</div>
+	<!-- end container -->
+	<script type="text/javascript">
+         $(document).ready(function()
+         {
+             //1. hide error section
+                $("#orderModeError").hide();
+                $("#orderCodeError").hide();
+                $("#orderTypeError").hide();
+                $("#orderAcptError").hide();
+                $("#orderDescError").hide();
+             //2. define error variable 
+                 var orderModeError=false;
+                 var orderCodeError =false;
+                 var orderTypeError=false;
+                 var orderAcptError=false;
+                 var orderDescError=false;
+             //3. validate function
+               function validate_orderMode()
+               {
+                   var val=$('[name="orderMode"]:checked').length;
+                   if(val==0){
+                       $("#orderModeError").show();
+                       $("#orderModeError").html("* Please choose <b>one option</b> ");
+                       $("#orderModeError").css('color','red');
+                   }
+                   else{
+                    $("#orderModeError").hide();
+                        orderModeError =true;
+                   }
+
+                   return orderModeError;
+               }
+
+               function validate_orderCode()
+               {
+                   var val=$("#orderCode").val();
+                   var exp=/^[A-Z0-9\.\-]{4,12}$/;
+                   if(val=='')
+                   {
+                       $("#orderCodeError").show();
+                       $("#orderCodeError").html("*Please Enter <b>Order Code</b>");
+                       $("#orderCodeError").css('color','red');
+                        orderCodeError=false;
+                   }
+                   else if(!exp.test(val))
+                   {
+                        $("#orderCodeError").show();
+                       $("#orderCodeError").html("*Invalid <b>Order Code</b>");
+                       $("#orderCodeError").css('color','red');
+                        orderCodeError=false;
+                   }
+                   else
+                   {
+                       $("#orderCodeError").hide();
+                       orderCodeError=true;
+                   }
+                   return orderCodeError;
+               }
+
+               function validate_orderType()
+               {
+                   var val=$("#orderType").val();
+                   if(val=='')
+                   {
+                       $("#orderTypeError").show();
+                       $("#orderTypeError").html("*Please choose one <b>Order Type</b>");
+                       $("#orderTypeError").css("color","red");
+                        orderTypeError=false;
+                   }
+                   else{
+                       $("#orderTypeError").hide();
+                       orderTypeError = true;
+                   }
+                   return orderTypeError;
+               }
+
+               function validate_orderAcpt()
+               {
+                   var  val=$('[name="orderAcpt"]:checked').length;
+                   if(val==0)
+                   {
+                       $("#orderAcptError").show();
+                       $("#orderAcptError").html("*Please choose atleast <b>one or all</b> Order Accept");
+                       $("#orderAcptError").css('color','red');
+                   }
+                   else{
+                    $("#orderAcptError").hide();
+                    orderAcptError=true;
+                   }
+                   return orderAcptError;
+               }
+
+               function validate_orderDesc(){
+                   var val=$("#orderDesc").val();
+                   var exp=/^[A-Za-z0-9\.\,\s\-]{5,150}$/;
+                   if(val=='')
+                   {
+                       $("#orderDescError").show();
+                       $("#orderDescError").html("*Please Enter something about <b>Description</b> ");
+                       $("#orderDescError").css('color','red');
+                       orderDescError=false;
+                   }
+                   else if(!exp.test(val))
+                   {
+                        $("#orderDescError").show();
+                        $("#orderDescError").html("The <b>min and max</b> length of Description box is 5-150");
+                        $("#orderDescError").css('color','red');
+                        orderDescError=false;
+                   }
+                   else{
+                       $("#orderDescError").hide();
+                       orderDescError=true;
+                   }
+                   return orderDescError;
+               }
+        //4. link with action event
+               $("[name='orderMode']").change(function(){
+                   validate_orderMode();
+               })
+
+               $("#orderCode").keyup(function(){
+                   $(this).val($(this).val());
+                   validate_orderCode();
+               })
+
+               $("#orderType").change(function(){
+                   validate_orderType();
+               })
+
+               $("[name='orderAcpt']").change(function(){
+                   validate_orderAcpt();
+               })
+
+               $("#orderDesc").keyup(function(){
+                   validate_orderDesc();
+               })
+
+        //5. on form submit
+               $("#orderMethodReg").submit(function(){
+                   validate_orderMode();
+                   validate_orderCode();
+                   validate_orderType();
+                   validate_orderAcpt();
+                   validate_orderDesc();
+                   if(orderModeError&& orderCodeError 
+                   && orderTypeError && orderAcptError
+                   && orderDescError)
+                   return true; //form submit 
+                   else
+                   return false; //form not submit
+               })
+          });
+    </script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<div class="container">
+		<div class="card">
+			<div class="card card-header bg-info">
+				<h3 class="text-center text-light">WELCOME TO UOM REGISTER PAGE</h3>
+			</div>
+			<!-- end card header -->
+			<div class="card card-body">
+				<form th:action="@{/uom/save}" method="POST">
+					<div class="row">
+						<div class="col-3">
+							<label class="font-weight-bold text-uppercase">Uom Type</label>
+						</div>
+
+						<div class="col-4">
+							<select name="uomType" class="form-control">
+								<option value="---SELECT---">---SELECT---</option>
+								<option value="PACKING">PACKING</option>
+								<option value="NO PACKING">NO PACKING</option>
+								<option value="--NA--">--NA--</option>
+							</select>
+						</div>
+
+						<div class="col-5">
+							<span></span>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-3">
+							<label class="font-weight-bold text-uppercase">Uom Model</label>
+						</div>
+
+						<div class="col-4">
+							<input type="text" name="uomModel" class="form-control"/>
+						</div>
+
+						<div class="col-5">
+							<span></span>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-3">
+							<label class="font-weight-bold text-uppercase">Description</label>
+						</div>
+
+						<div class="col-4">
+							<textarea name="uomDesc" class="form-control"></textarea>
+						</div>
+
+						<div class="col-5">
+							<span></span>
+						</div>
+					</div>
+					<input type="submit" value="Create Uom" class="btn btn-danger">
+
+				</form>
+			</div>
+			<!-- end card body-->
+			<div class="card card-footer bg-light">
+				<span th:text="${message}" class="text-success font-weight-bold text-center"></span>
+			</div>
+			<!-- end card footer -->
+		</div>
+		<!-- card ends -->
+
+	</div>
+	<!-- container end -->
+
+</body>
+</html>

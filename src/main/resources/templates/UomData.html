@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="container">
+		<div class="card">
+			<div class="card card-header bg-secondary text-center text-light">
+				<h3>WELCOME TO UOM DATA PAGE</h3>
+			</div>
+			<!-- end card header -->
+			<div class="card card-body">
+				<table class="table table-striped text-center table-bordered">
+					<tr>
+						<th class="text-uppercase">Id</th>
+						<th class="text-uppercase">Uom Type</th>
+						<th class="text-uppercase">Uom Model</th>
+						<th class="text-uppercase">Description</th>
+						<th class="text-uppercase">Operation</th>
+					</tr>
+					<tr th:each="ob:${list}">
+						<td th:text="${ob.id}" class="font-weight-bold"></td>
+						<td th:text="${ob.uomType}"></td>
+						<td th:text="${ob.uomModel}"></td>
+						<td th:text="${ob.uomDesc}"></td>
+						<td>
+						<a th:href="@{/uom/delete(id=${ob.id})}" class="btn btn-outline-danger">DELETE</a> 
+						<a href="#" class="btn btn-outline-primary">EDIT</a></td>
+					</tr>
+				</table>
+
+			</div><!-- end card body -->
+			
+			<div class="card card-footer bg-light" th:if="${message!=null}">
+				<span th:text="${message}" class="text-success font-weight-bold text-center"></span>
+			</div><!-- end card footer -->
+
+		</div>
+			<!-- end card -->
+	</div>
+	<!-- end container -->
+
+
+
+
+</body>
+</html>
