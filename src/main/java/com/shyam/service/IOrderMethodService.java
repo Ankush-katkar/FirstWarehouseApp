@@ -13,5 +13,6 @@ public interface IOrderMethodService {
 	boolean isOrderMethodExist(Integer id);
 	Optional<OrderMethod> getOneOrderMethod(Integer id);
 	void updateOrderMthod(OrderMethod om);
+	public boolean isOrderMethodExistByCode(String orderCode);
 
 }

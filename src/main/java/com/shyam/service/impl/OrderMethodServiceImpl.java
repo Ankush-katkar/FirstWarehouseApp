@@ -56,6 +56,10 @@ public class OrderMethodServiceImpl implements IOrderMethodService
 		// TODO Auto-generated method stub
 		repo.save(om);
 	}
-	
+	@Override
+	public boolean isOrderMethodExistByCode(String orderCode) {
+		// TODO Auto-generated method stub
+		return repo.getOrderMethodCountByCode(orderCode) > 0;
+	}
 
 }

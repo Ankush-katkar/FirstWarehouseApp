@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.shyam.model.OrderMethod;
 import com.shyam.service.IOrderMethodService;
@@ -128,5 +129,17 @@ public class OrderMethodController
 		//go  back to UI page
 		return "OrderMethodData";
 
+	}
+
+	// AJAX VALIDATIONS
+	@GetMapping("/validateCode")
+	public @ResponseBody String validateOrderCode(@RequestParam("code") String orderCode) {
+		
+		String message="";
+		if(service.isOrderMethodExistByCode(orderCode))
+		{
+			message="Order Method '"+orderCode+"' Exists! Try Different";
+		}
+		return message;
 	}
 }
